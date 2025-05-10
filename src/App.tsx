@@ -1,11 +1,15 @@
-import { AppRoutes } from "./routes"
+// App.tsx
+import { AppRoutes } from "./routes";
+import { BackgroundImage } from './components/BackgroundImage';
 
-function App() {
+export function App() {
   return (
-    <div className="min-h-screen bg-gray-100">
-      <AppRoutes />
+    <div className="min-h-screen">
+      <BackgroundImage />
+      <img src="./assets/imagemFundo.png" alt="" />
+      <div className="relative z-10 min-h-screen">
+        <AppRoutes />
+      </div>
     </div>
-  )
+  );
 }
-
-export default App
