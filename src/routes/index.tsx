@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 import { Home } from '../pages/Home'
-import { Game } from '../pages/Game'
+import { Dificuldade } from '../pages/Game'
 import { Ranking } from '../pages/Ranking'
 
 export function AppRoutes() {
@@ -8,7 +8,7 @@ export function AppRoutes() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/home" element={<Home />} />
-      <Route path="/jogo" element={<Game />} />
+      <Route path="/jogo" element={<Dificuldade />} />
       <Route path="/ranking" element={<Ranking />} />
     </Routes>
   )
