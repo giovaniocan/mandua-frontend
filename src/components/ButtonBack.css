@@ -1,0 +1,25 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 15px;
+  z-index: 100;
+}
+
+.header__button {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: none;
+  border-radius: 5px;
+  padding: 8px 15px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.header__button:hover {
+  background-color: rgba(255, 255, 255, 1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}

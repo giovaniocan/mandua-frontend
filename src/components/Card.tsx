@@ -10,14 +10,17 @@ interface CardProps {
     color: 'green' | 'blue' | 'yellow' | 'brown';
     onClick?: () => void;
   }[];
+  children?: React.ReactNode;
+  className?: string;
 }
 
-export const Card = ({ title, subtitle, buttons }: CardProps) => {
+export const Card = ({ title, subtitle, buttons, children, className = "" }: CardProps) => {
   return (
-    <div className="card">
+    <div className={`card ${className}`}>
       <h1 className="card-title">{title}</h1>
       <p className="card-subtitle">{subtitle}</p>
-      
+      {children}
+      {buttons && buttons.length > 0 && (
       <div className="card-buttons">
         {buttons.map((button, index) => (
           <Button 
@@ -28,6 +31,7 @@ export const Card = ({ title, subtitle, buttons }: CardProps) => {
           />
         ))}
       </div>
+    )}
     </div>
   );
 };
