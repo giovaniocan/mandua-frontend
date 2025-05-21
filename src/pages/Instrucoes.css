@@ -1,0 +1,26 @@
+.instrucoes-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #f1f8e9, #c8e6c9);
+}
+
+.btn-voltar {
+  align-self: flex-start;
+  margin-bottom: 1.5rem;
+  background-color: #388e3c;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.btn-voltar:hover {
+  background-color: #2e7d32;
+}

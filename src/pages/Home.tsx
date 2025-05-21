@@ -25,12 +25,12 @@ export const Home = () => {
           { 
             text: 'Instruções', 
             color: 'yellow',
-            onClick: () => alert('Instruções do jogo')
+            onClick: () => navigate('/instrucoes')
           },
           { 
-            text: 'Linguagem', 
+            text: 'Idioma', 
             color: 'brown',
-            onClick: () => alert('Mudar linguagem')
+            onClick: () => navigate('/idioma')
           }
         ]}
       />
