@@ -2,6 +2,8 @@ import { Routes, Route } from 'react-router-dom'
 import { Home } from '../pages/Home'
 import { Dificuldade } from '../pages/Game'
 import { Ranking } from '../pages/Ranking'
+import ModelScore from "../pages/ModelScore"; 
+
 
 export function AppRoutes() {
   return (
@@ -10,6 +12,7 @@ export function AppRoutes() {
       <Route path="/home" element={<Home />} />
       <Route path="/jogo" element={<Dificuldade />} />
       <Route path="/ranking" element={<Ranking />} />
+      <Route path="/modelScore" element={< ModelScore />} />
     </Routes>
   )
 }
