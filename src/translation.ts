@@ -60,7 +60,7 @@ Dicas:
 • Tente memorizar a posição das cartas para formar os pares mais rapidamente.
 • Preste atenção nas cartas que já foram reveladas.
 
-Divirta-se e desafie sua memória!`,
+Divirta-se e desafie sua memória!!`,
     },
   },
   gn: {
