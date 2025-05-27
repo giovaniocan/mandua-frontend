@@ -9,7 +9,7 @@ export const Dificuldade = () => {
 
   const handleClick = (nivel: string) => {
     setDificuldadeSelecionada(nivel);
-    navigate(`/jogo/${nivel}`);
+    navigate(`/Game/${nivel}`);
   };
 
   return (
@@ -17,20 +17,20 @@ export const Dificuldade = () => {
       <button className="btn-voltar" onClick={() => navigate('/')}>Voltar</button>
       <Card
         title="Mandu'a"
-        subtitle=""
+        subtitle="Escolha a dificuldade do jogo"
         buttons={[
           {
-            text: 'Fácil',
+            text: 'Fácil (16 cartas)',
             color: 'green',
             onClick: () => handleClick('facil')
           },
           {
-            text: 'Médio',
+            text: 'Médio (24 cartas)',
             color: 'blue',
             onClick: () => handleClick('medio')
           },
           {
-            text: 'Difícil',
+            text: 'Difícil (30 cartas)',
             color: 'brown',
             onClick: () => handleClick('dificil')
           }
