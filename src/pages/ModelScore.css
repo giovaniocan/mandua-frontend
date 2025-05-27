@@ -1,0 +1,153 @@
+.modelscore-card {
+  background-color: #ffffff;
+  background-size: cover;
+  border-radius: 2rem;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+  padding: 2.5rem 2rem;
+  max-width: 480px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-top: 1rem;
+  margin-bottom: 6rem;
+}
+
+.modelscore-title {
+  color: #7bc300;
+  font-size: 3rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.modelscore-info {
+  width: 100%;
+  background: none;
+  border-radius: 1rem;
+  padding: 0 0 1.5rem 0;
+  margin-bottom: 1.5rem;
+  font-size: 1.25rem;
+}
+
+.modelscore-info > div {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.modelscore-label {
+  font-weight: 500;
+  color: #444;
+}
+
+.modelscore-value {
+  color: #7bc300;
+  font-weight: 600;
+}
+
+.modelscore-score-label {
+  font-size: 1.15rem;
+}
+
+.modelscore-score-value {
+  font-size: 1.3rem;
+}
+
+.modelscore-divider {
+  border: none;
+  border-top: 2px solid #eee;
+  margin: 0.5rem 0 0.7rem 0;
+}
+
+.modelscore-save {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.modelscore-save-label {
+  color: #7bc300;
+  font-size: 0.95rem;
+  margin-bottom: 0.3rem;
+  margin-left: 0.5rem;
+}
+
+.modelscore-save-row {
+  display: flex;
+  width: 100%;
+  gap: 0.5rem;
+}
+
+.modelscore-input {
+  flex: 1;
+  border-radius: 999px;
+  border: 1.5px solid #ffd6db;
+  background: #fff0f3;
+  padding: 0.7rem 1.2rem;
+  font-size: 1.1rem;
+  color: #a77b8c;
+  outline: none;
+}
+
+.modelscore-input:disabled {
+  background: #f3f3f3;
+  color: #bdbdbd;
+}
+
+.modelscore-save-btn {
+  background: #7bc300;
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 0 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  transition: background 0.2s;
+  cursor: pointer;
+}
+
+.modelscore-save-btn:disabled {
+  background: #c2e6a1;
+  color: #fff;
+  cursor: not-allowed;
+}
+
+.modelscore-saved-msg {
+  color: #7bc300;
+  font-size: 0.95rem;
+  margin-top: 0.3rem;
+  margin-left: 0.5rem;
+}
+
+.modelscore-buttons {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.modelscore-bg-center {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  background-size: cover;
+  background-position: center;
+}
+
+@media (max-width: 600px) {
+  .modelscore-card {
+    padding: 1.2rem 0.5rem;
+    border-radius: 1rem;
+  }
+  .modelscore-title {
+    font-size: 2rem;
+  }
+}
