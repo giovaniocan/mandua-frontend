@@ -5,6 +5,7 @@ import { Dificuldade } from '../pages/Dificuldade'
 import { Ranking } from '../pages/Ranking'
 import Instrucoes from '../pages/Instrucoes'
 import { Idioma } from '../pages/Idioma'
+import { Game } from '../pages/Game'
 
 import ModelScore from "../pages/ModelScore"; 
 
@@ -19,6 +20,7 @@ export function AppRoutes() {
       <Route path="/instrucoes" element={<Instrucoes />} />
       <Route path="/idioma" element={<Idioma />} />
       <Route path="/modelScore" element={< ModelScore />} />
+      <Route path="/jogo/:nivel" element={<Game />} />
     </Routes>
   )
 }

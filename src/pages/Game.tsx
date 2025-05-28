@@ -2,7 +2,6 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { Card } from '../components/Card';
-import { Button } from '../components/Button';
 import './Game.css';
 
 // Interface para as cartas do jogo
@@ -18,7 +17,7 @@ export const Game = () => {
   const navigate = useNavigate();
   
   // Estados para controlar o jogo
-  const [cartas, setCartas] = useState<CartaJogo[]>([]);
+  const [cartas, setCartas] = useState<CartaJogo[]>([]);             
   const [cartasViradas, setCartasViradas] = useState<number[]>([]);
   const [tentativas, setTentativas] = useState<number>(0);
   const [pontuacao, setPontuacao] = useState<number>(1000);
@@ -27,39 +26,35 @@ export const Game = () => {
   // Dados de exemplo para o ranking
   const ranking = Array(10).fill({ name: 'Jogador', score: 1000 });
 
-  // Determinar número de cartas com base na dificuldade
-  let numeroCartas = 30; // Padrão para difícil
-  let colunas = 6;      // Padrão de colunas
+  // LÓGICA DA DIFICULDADE
+  // Determina número de cartas com base na dificuldade, definindo o "DIFICIL" como padrão
+  let numeroCartas = 30; 
+  let colunas = 6;      
   
   if (nivel === 'facil') {
     numeroCartas = 16;
-    colunas = 4;        // 4x4 grid
+    colunas = 4;        
   } else if (nivel === 'medio') {
     numeroCartas = 24;
-    colunas = 6;        // 6x4 grid
+    colunas = 6;        
   }
   
-  // Inicializar as cartas quando o componente carregar
+
+  // Inicializando as cartas
   useEffect(() => {
     inicializarCartas();
   }, [nivel]);
   
-  // Função para inicializar o jogo com cartas embaralhadas
   const inicializarCartas = () => {
-    // Criar array de conteúdos (pares)
+    // MUDAR PARA O COMPONENTE QUANDO PRONTO
     const conteudos = ['🍎', '🍌', '🍇', '🍊', '🍓', '🍉', '🍒', '🥥', 
                        '🐶', '🐱', '🐭', '🐰', '🦊', '🐻', '🐼', '🐨'];
                        
-    // Pegar apenas a quantidade necessária para o nível
-    const conteudosNivel = conteudos.slice(0, numeroCartas / 2);
-    
-    // Duplicar para criar pares
-    let todosPares = [...conteudosNivel, ...conteudosNivel];
-    
-    // Embaralhar as cartas
-    todosPares = todosPares.sort(() => Math.random() - 0.5);
-    
-    // Criar o array de cartas
+    const conteudosNivel = conteudos.slice(0, numeroCartas / 2);  // Traz a quantidade certa de cartas pelo nivel
+    let todosPares = [...conteudosNivel, ...conteudosNivel];      // Duplica as cartas no tabuleiro
+    todosPares = todosPares.sort(() => Math.random() - 0.5);      // Embaralha as cartas
+
+    //DEPOIS ALTERADO PARA O COMPONENTE QUANDO PRONTO
     const novasCartas: CartaJogo[] = todosPares.map((conteudo, index) => ({
       id: index,
       conteudo,
@@ -74,57 +69,49 @@ export const Game = () => {
     setJogoCompleto(false);
   };
 
-  // Função para virar uma carta
+  // Função para virar carta
   const virarCarta = (id: number) => {
     // Se já tem 2 cartas viradas ou a carta já está virada/encontrada, não faz nada
     if (cartasViradas.length === 2 || cartas[id].virada || cartas[id].encontrada) {
       return;
     }
 
-    // Virar a carta clicada
-    const novasCartas = [...cartas];
-    novasCartas[id].virada = true;
-    setCartas(novasCartas);
-    
-    // Adicionar ao array de cartas viradas
-    const novasCartasViradas = [...cartasViradas, id];
+    const novasCartas = [...cartas];                   // Virar a carta clicada
+    novasCartas[id].virada = true;                     // Marca a carta como virada
+    setCartas(novasCartas);                            // Atualiza o estado das cartas
+    const novasCartasViradas = [...cartasViradas, id]; // Adiciona ao array de cartas viradas
     setCartasViradas(novasCartasViradas);
     
-    // Se já tem 2 cartas viradas, verificar se são iguais
-    if (novasCartasViradas.length === 2) {
-      // Aumentar contador de tentativas
-      setTentativas(prev => prev + 1);
-      
-      // Verificar se as cartas são iguais
-      setTimeout(() => {
+    
+    if (novasCartasViradas.length === 2) {             // Se já tem 2 cartas viradas, verificar se são iguais
+      setTentativas(prev => prev + 1);                 // Aumenta contador de tentativas
+      setTimeout(() => {                               // Verifica se as cartas são iguais
         verificarPar(novasCartasViradas);
-      }, 1000); // Aguarda 1s para o usuário ver as cartas
+      }, 1000);                                        // Timing de 1s para virar as cartas
     }
   };
 
   // Verificar se as duas cartas viradas são um par
-  const verificarPar = (ids: number[]) => {
+  const verificarPar = (ids: number[]) => {              
     const [id1, id2] = ids;
     const novasCartas = [...cartas];
     
-    // Se as cartas têm o mesmo conteúdo
-    if (novasCartas[id1].conteudo === novasCartas[id2].conteudo) {
-      // Marcar como encontradas
-      novasCartas[id1].encontrada = true;
+    
+    if (novasCartas[id1].conteudo === novasCartas[id2].conteudo) { // Se as cartas têm o mesmo conteúdo
+      novasCartas[id1].encontrada = true;                          // Marcar como encontradas
       novasCartas[id2].encontrada = true;
-      setPontuacao(prev => prev + 50); // Aumenta pontos por acerto
+      setPontuacao(prev => prev + 50);                             // Aumenta pontos por acerto
       
-      // Verificar se o jogo acabou
-      const todasEncontradas = novasCartas.every(carta => carta.encontrada);
+      const todasEncontradas = novasCartas.every(carta => carta.encontrada); // Verificar se o jogo acabou
       if (todasEncontradas) {
         setJogoCompleto(true);
-        // Aqui você poderia salvar o recorde, mostrar mensagem, etc.
       }
-    } else {
-      // Não são iguais, virar de volta
+
+
+    } else {                                                                 // Não são iguais, virar de volta
       novasCartas[id1].virada = false;
       novasCartas[id2].virada = false;
-      setPontuacao(prev => Math.max(0, prev - 25)); // Diminui pontos por erro
+      setPontuacao(prev => Math.max(0, prev - 25));                          // Diminui pontos por erro
     }
     
     setCartas(novasCartas);
