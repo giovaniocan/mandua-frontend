@@ -1,41 +1,47 @@
-.modelscore-card {
-  background-color: #ffffff;
+.modelscore-bg-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 2rem; 
+  min-height: 90vh;   
+  background-image: url('fundo.png');
   background-size: cover;
-  border-radius: 2rem;
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
-  padding: 2.5rem 2rem;
-  max-width: 480px;
+  background-position: center;
+}
+
+.modelscore-card {
+  background-color: #ffffffee;
+  backdrop-filter: blur(6px);
+  border-radius: 1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  padding: 0.5rem 2rem 1rem; 
   width: 100%;
+  max-width: 460px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  position: relative;
-  margin-top: 1rem;
-  margin-bottom: 6rem;
+  justify-content: flex-start; 
+  text-align: center;
+  gap: 1rem; 
 }
 
 .modelscore-title {
   color: #7bc300;
   font-size: 3rem;
   font-weight: bold;
-  text-align: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .modelscore-info {
   width: 100%;
-  background: none;
-  border-radius: 1rem;
-  padding: 0 0 1.5rem 0;
-  margin-bottom: 1.5rem;
-  font-size: 1.25rem;
+  font-size: 1.05rem;
+  margin-top: 0.5rem;
 }
 
 .modelscore-info > div {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 0.5rem;
+  margin: 0.4rem 0;
 }
 
 .modelscore-label {
@@ -44,110 +50,109 @@
 }
 
 .modelscore-value {
+  font-weight: 700;
   color: #7bc300;
-  font-weight: 600;
-}
-
-.modelscore-score-label {
-  font-size: 1.15rem;
-}
-
-.modelscore-score-value {
-  font-size: 1.3rem;
 }
 
 .modelscore-divider {
-  border: none;
-  border-top: 2px solid #eee;
-  margin: 0.5rem 0 0.7rem 0;
+  border-top: 1.5px solid #e0e0e0;
+  margin: 1rem 0 0.5rem;
+  width: 100%;
 }
 
 .modelscore-save {
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-bottom: 1.5rem;
+  text-align: left;
+  font-size: 1rem;
 }
 
 .modelscore-save-label {
   color: #7bc300;
-  font-size: 0.95rem;
   margin-bottom: 0.3rem;
-  margin-left: 0.5rem;
+  display: block;
 }
 
 .modelscore-save-row {
   display: flex;
+  gap: 0.6rem;
   width: 100%;
-  gap: 0.5rem;
 }
 
 .modelscore-input {
   flex: 1;
-  border-radius: 999px;
   border: 1.5px solid #ffd6db;
-  background: #fff0f3;
-  padding: 0.7rem 1.2rem;
-  font-size: 1.1rem;
+  border-radius: 0.6rem;
+  background-color: #fff0f3;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
   color: #a77b8c;
   outline: none;
 }
 
 .modelscore-input:disabled {
-  background: #f3f3f3;
-  color: #bdbdbd;
+  background-color: #f0f0f0;
+  color: #aaa;
 }
 
 .modelscore-save-btn {
-  background: #7bc300;
-  color: #fff;
+  background-color: #7bc300;
+  color: white;
   border: none;
-  border-radius: 999px;
-  padding: 0 1.5rem;
-  font-size: 1.1rem;
+  border-radius: 0.6rem;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
   font-weight: 600;
-  transition: background 0.2s;
   cursor: pointer;
+  transition: background 0.2s;
 }
 
 .modelscore-save-btn:disabled {
-  background: #c2e6a1;
-  color: #fff;
+  background-color: #c2e6a1;
   cursor: not-allowed;
 }
 
 .modelscore-saved-msg {
   color: #7bc300;
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   margin-top: 0.3rem;
-  margin-left: 0.5rem;
+  margin-left: 0.3rem;
 }
 
 .modelscore-buttons {
-  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  width: 100%;
+  gap: 0.8rem;
   margin-top: 0.5rem;
 }
 
-.modelscore-bg-center {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.5rem;
-  background-size: cover;
-  background-position: center;
+.modelscore-buttons button {
+  width: 100%;
+  padding: 0.85rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  border-radius: 0.6rem;
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
 }
 
-@media (max-width: 600px) {
-  .modelscore-card {
-    padding: 1.2rem 0.5rem;
-    border-radius: 1rem;
-  }
-  .modelscore-title {
-    font-size: 2rem;
+.modelscore-buttons .replay-btn {
+  background-color: #28a745;
+}
+
+.modelscore-buttons .ranking-btn {
+  background-color: #4f9df7;
+}
+
+.modelscore-buttons .home-btn {
+  background-color: #b35400;
+}
+
+@media (max-height: 700px) {
+  .modelscore-bg-center {
+    align-items: flex-start;
+    padding-top: 2rem;
   }
 }
