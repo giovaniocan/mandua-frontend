@@ -1,25 +1,31 @@
 import React, { useState } from 'react';
 import { Button } from "../components/Button";
 import './ModelScore.css';
-import { useNavigate } from "react-router-dom";
+
+import { useNavigate, useLocation } from 'react-router-dom';
+
 
 const ModelScore = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { dificuldade, tempo, jogadas, pontuacao } = location.state || {};
+
   const [nome, setNome] = useState('');
   const [salvo, setSalvo] = useState(false);
   const navigate = useNavigate();
 
   const gameStats = {
-    difficulty: "Fácil",
-    time: "00:10",
-    moves: 4,
-    score: 940,
+    difficulty: dificuldade,
+    time: tempo,
+    moves: jogadas,
+    score: pontuacao,
   };
 
   const buttons: { text: string; color: "green" | "blue" | "brown"; onClick: () => void }[] = [
     {
       text: 'Jogar novamente',
       color: 'green',
-      onClick: () => navigate('/jogo'), 
+      onClick: () => navigate('/jogo'),
     },
     {
       text: 'Ver classificação',

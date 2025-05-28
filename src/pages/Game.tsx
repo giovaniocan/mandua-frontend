@@ -22,6 +22,7 @@ export const Game = () => {
   const [tentativas, setTentativas] = useState<number>(0);
   const [pontuacao, setPontuacao] = useState<number>(1000);
   const [jogoCompleto, setJogoCompleto] = useState<boolean>(false);
+  const [tempoJogo, setTempoJogo] = useState<number>(0);
   
   // Dados de exemplo para o ranking
   const ranking = Array(10).fill({ name: 'Jogador', score: 1000 });
@@ -31,10 +32,10 @@ export const Game = () => {
   let numeroCartas = 30; 
   let colunas = 6;      
   
-  if (nivel === 'facil') {
+  if (nivel === 'Facil') {
     numeroCartas = 16;
     colunas = 4;        
-  } else if (nivel === 'medio') {
+  } else if (nivel === 'Medio') {
     numeroCartas = 24;
     colunas = 6;        
   }
@@ -106,8 +107,6 @@ export const Game = () => {
       if (todasEncontradas) {
         setJogoCompleto(true);
       }
-
-
     } else {                                                                 // Não são iguais, virar de volta
       novasCartas[id1].virada = false;
       novasCartas[id2].virada = false;
@@ -118,6 +117,33 @@ export const Game = () => {
     setCartasViradas([]);
   };
   
+  // Evento para atualizar o tempo do jogo
+  useEffect(() => {
+    if (jogoCompleto) return; 
+    
+    // Para o timer quando o jogo acabar
+    const timer = setInterval(() => {
+      setTempoJogo(prev => prev + 1);
+    }, 1000);
+    
+    return () => clearInterval(timer); // Limpa o timer 
+  }, [jogoCompleto]);
+
+
+  // Evento para redirecionar ao finalizar o jogo
+  useEffect(() => {
+    if (jogoCompleto) {
+      navigate('/modelScore', { 
+        state: { 
+          dificuldade: nivel,
+          tempo: tempoJogo,
+          jogadas: tentativas,
+          pontuacao: pontuacao
+        } 
+      });
+    }
+  }, [jogoCompleto, navigate, nivel, tempoJogo, tentativas, pontuacao]);
+
   // Renderização do componente
   return (
     <div className="game-container">
@@ -167,6 +193,7 @@ export const Game = () => {
       <div className="game-info">
         <Card className="tentativas">Tentativas: {tentativas}</Card>
         <Card className="pontuacao">Pontuação: {pontuacao}</Card>
+        <Card className="tempo">Tempo: {Math.floor(tempoJogo / 60)}:{(tempoJogo % 60).toString().padStart(2, '0')}</Card>
       </div>
     </div>
   );

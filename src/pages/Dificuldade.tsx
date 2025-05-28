@@ -22,17 +22,17 @@ export const Dificuldade = () => {
           {
             text: 'Fácil (16 cartas)',
             color: 'green',
-            onClick: () => handleClick('facil')
+            onClick: () => handleClick('Facil')
           },
           {
             text: 'Médio (24 cartas)',
             color: 'blue',
-            onClick: () => handleClick('medio')
+            onClick: () => handleClick('Medio')
           },
           {
             text: 'Difícil (30 cartas)',
             color: 'brown',
-            onClick: () => handleClick('dificil')
+            onClick: () => handleClick('Dificil')
           }
         ]}
       />
