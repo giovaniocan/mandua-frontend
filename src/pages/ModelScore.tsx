@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Button } from "../components/Button";
 import './ModelScore.css';
+
 import { useNavigate, useLocation } from 'react-router-dom';
+
 
 const ModelScore = () => {
   const navigate = useNavigate();
@@ -10,6 +12,7 @@ const ModelScore = () => {
 
   const [nome, setNome] = useState('');
   const [salvo, setSalvo] = useState(false);
+  const navigate = useNavigate();
 
   const gameStats = {
     difficulty: dificuldade,
@@ -22,17 +25,17 @@ const ModelScore = () => {
     {
       text: 'Jogar novamente',
       color: 'green',
-      onClick: () => navigate(`/jogo`),
+      onClick: () => navigate('/jogo'),
     },
     {
       text: 'Ver classificação',
       color: 'blue',
-      onClick: () => navigate('/ranking'),
+      onClick: () => navigate('/ranking'), 
     },
     {
       text: 'Tela Inicial',
       color: 'brown',
-      onClick: () => navigate('/home'),
+      onClick: () => navigate('/home'), 
     },
   ];
 
