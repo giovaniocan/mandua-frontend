@@ -9,7 +9,7 @@ export const Dificuldade = () => {
 
   const handleClick = (nivel: string) => {
     setDificuldadeSelecionada(nivel);
-    navigate(`/Game/${nivel}`);
+    navigate(`/jogo/${nivel}`);
   };
 
   return (
