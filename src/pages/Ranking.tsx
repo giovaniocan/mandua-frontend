@@ -1,8 +1,46 @@
-export function Ranking() {
-    return (
-      <div className="p-6">
-        <h1 className="text-xl">Ranking</h1>
+import React from 'react';
+import './Ranking.css';
+
+type Player = {
+  name: string;
+  score: number;
+  time: string;
+};
+
+export const Ranking: React.FC = () => {
+  const players: Player[] = [
+    { name: 'FULANO 1', score: 888888, time: '01:30:04' },
+    { name: 'FULANO 2', score: 777777, time: '01:30:04' },
+    { name: 'FULANO 3', score: 555555, time: '01:30:04' },
+    { name: 'FULANO 4', score: 222222, time: '01:30:04' },
+    { name: 'FULANO 5', score: 111111, time: '01:30:04' },
+    { name: 'FULANO 6', score: 0, time: '01:30:04' },
+  ];
+
+  return (
+    <div className="ranking-wrapper">
+      <button className="back-button">Voltar</button>
+
+      <div className="ranking-container">
+        <h1 className="ranking-title">Ranking</h1>
+
+        <div className="ranking-table">
+          <div className="ranking-header">
+            <span>Nome</span>
+            <span>Score</span>
+          </div>
+
+          {players.map((player, index) => (
+            <div className="ranking-row" key={index}>
+              <div className="player-name">{player.name}</div>
+              <div className="player-score">
+                PONTOS: {player.score.toString().padStart(7, '0')} &nbsp;&nbsp;
+                TEMPO: {player.time}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
-    )
-  }
-  
+    </div>
+  );
+};
