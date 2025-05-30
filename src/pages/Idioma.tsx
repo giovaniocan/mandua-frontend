@@ -1,33 +1,36 @@
-import { useState } from 'react';
+// pages/Idioma.tsx
 import { useNavigate } from 'react-router-dom';
 import { Card } from '../components/Card';
+import { useLanguage } from '../languageContext';
 import './Idioma.css';
 
 export const Idioma = () => {
-  const [idiomaSelecionado, setIdiomaSelecionado] = useState('');
   const navigate = useNavigate();
+  const { setLanguage, t } = useLanguage(); // pega função de tradução e setter do idioma
 
-  const handleIdiomaClick = (idioma: string) => {
-    setIdiomaSelecionado(idioma);
-    navigate(`/idioma/${idioma}`);
+  const handleIdiomaClick = (idioma: "pt" | "gn") => {
+    setLanguage(idioma);        // troca o idioma
+    navigate('/');              // volta para a tela inicial
   };
 
   return (
     <div className="idioma-container">
-      <button className="btn-voltar" onClick={() => navigate('/')}>Voltar</button>
+      <button className="btn-voltar" onClick={() => navigate('/')}>
+        {t("difficulty", "back")} {/* usando tradução para "Voltar" */}
+      </button>
       <Card
-        title="Mandu'a"
-        subtitle="Selecione o idioma que deseja utilizar no jogo"
+        title={t("home", "title")} // "Mandu’a"
+        subtitle={t("language", "select")} // "Altere o Idioma"
         buttons={[
           {
-            text: 'Português',
+            text: t("language", "portuguese"),
             color: 'green',
-            onClick: () => handleIdiomaClick('portugues')
+            onClick: () => handleIdiomaClick('pt')
           },
           {
-            text: 'Guarani',
+            text: t("language", "guarani"),
             color: 'blue',
-            onClick: () => handleIdiomaClick('guarani')
+            onClick: () => handleIdiomaClick('gn')
           }
         ]}
       />

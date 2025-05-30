@@ -1,39 +1,35 @@
 import React, { useState } from 'react';
 import { Button } from "../components/Button";
 import './ModelScore.css';
-
-import { useNavigate, useLocation } from 'react-router-dom';
-
+import { useNavigate } from "react-router-dom";
+import { useLanguage } from "../languageContext";
 
 const ModelScore = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { dificuldade, tempo, jogadas, pontuacao } = location.state || {};
-
   const [nome, setNome] = useState('');
   const [salvo, setSalvo] = useState(false);
   const navigate = useNavigate();
+  const { t } = useLanguage();
 
   const gameStats = {
-    difficulty: dificuldade,
-    time: tempo,
-    moves: jogadas,
-    score: pontuacao,
+    difficulty: t("difficulty", "easy"), 
+    time: "00:10",
+    moves: 4,
+    score: 940,
   };
 
   const buttons: { text: string; color: "green" | "blue" | "brown"; onClick: () => void }[] = [
     {
-      text: 'Jogar novamente',
+      text: t("score", "playAgain"),
       color: 'green',
-      onClick: () => navigate('/jogo'),
+      onClick: () => navigate('/jogo'), 
     },
     {
-      text: 'Ver classificação',
+      text: t("score", "viewRanking"),
       color: 'blue',
       onClick: () => navigate('/ranking'), 
     },
     {
-      text: 'Tela Inicial',
+      text: t("score", "home"),
       color: 'brown',
       onClick: () => navigate('/home'), 
     },
@@ -45,32 +41,32 @@ const ModelScore = () => {
       style={{ backgroundImage: "url('/lovable-uploads/76d5c043-cef5-4051-882a-53e08a24e6a5.png')" }}
     >
       <div className="modelscore-card">
-        <h1 className="modelscore-title">Parabéns!!</h1>
+        <h1 className="modelscore-title">{t("score", "congrats")}</h1>
         <div className="modelscore-info">
           <div>
-            <span className="modelscore-label">Dificuldade:</span>
+            <span className="modelscore-label">{t("score", "difficulty")}:</span>
             <span className="modelscore-value">{gameStats.difficulty}</span>
           </div>
           <div>
-            <span className="modelscore-label">Tempo:</span>
+            <span className="modelscore-label">{t("score", "time")}:</span>
             <span className="modelscore-value">{gameStats.time}</span>
           </div>
           <div>
-            <span className="modelscore-label">Jogadas:</span>
+            <span className="modelscore-label">{t("score", "moves")}:</span>
             <span className="modelscore-value">{gameStats.moves}</span>
           </div>
           <hr className="modelscore-divider" />
           <div>
-            <span className="modelscore-label modelscore-score-label">Pontuação:</span>
+            <span className="modelscore-label modelscore-score-label">{t("game", "score")}:</span>
             <span className="modelscore-value modelscore-score-value">{gameStats.score}</span>
           </div>
         </div>
         <div className="modelscore-save">
-          <span className="modelscore-save-label">Salvar sua pontuação</span>
+          <span className="modelscore-save-label">{t("score", "save")}</span>
           <div className="modelscore-save-row">
             <input
               type="text"
-              placeholder="Seu nome"
+              placeholder={t("score", "name")}
               value={nome}
               onChange={e => setNome(e.target.value)}
               className="modelscore-input"
@@ -86,10 +82,10 @@ const ModelScore = () => {
               className="modelscore-save-btn"
               disabled={salvo || !nome.trim()}
             >
-              Salvar
+              {t("score", "confirm")}
             </button>
           </div>
-          {salvo && <span className="modelscore-saved-msg">Pontuação salva!</span>}
+          {salvo && <span className="modelscore-saved-msg">{t("score", "saved")}</span>}
         </div>
         <div className="modelscore-buttons">
           {buttons.map((btn, idx) => (
