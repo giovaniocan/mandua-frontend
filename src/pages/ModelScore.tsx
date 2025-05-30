@@ -1,37 +1,41 @@
 import React, { useState } from 'react';
 import { Button } from "../components/Button";
 import './ModelScore.css';
-import { useNavigate } from "react-router-dom";
-import { useLanguage } from "../languageContext";
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useLanguage } from '../languageContext';
 
 const ModelScore = () => {
-  const [nome, setNome] = useState('');
-  const [salvo, setSalvo] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
   const { t } = useLanguage();
 
+  const { dificuldade, tempo, jogadas, pontuacao } = location.state || {};
+
+  const [nome, setNome] = useState('');
+  const [salvo, setSalvo] = useState(false);
+
   const gameStats = {
-    difficulty: t("difficulty", "easy"), 
-    time: "00:10",
-    moves: 4,
-    score: 940,
+    difficulty: dificuldade,
+    time: tempo,
+    moves: jogadas,
+    score: pontuacao,
   };
 
   const buttons: { text: string; color: "green" | "blue" | "brown"; onClick: () => void }[] = [
     {
       text: t("score", "playAgain"),
       color: 'green',
-      onClick: () => navigate('/jogo'), 
+      onClick: () => navigate('/jogo'),
     },
     {
       text: t("score", "viewRanking"),
       color: 'blue',
-      onClick: () => navigate('/ranking'), 
+      onClick: () => navigate('/ranking'),
     },
     {
       text: t("score", "home"),
       color: 'brown',
-      onClick: () => navigate('/home'), 
+      onClick: () => navigate('/home'),
     },
   ];
 
