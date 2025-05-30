@@ -1,4 +1,4 @@
-const translations = {
+const translation = {
   pt: {
     home: {
       title: "Mandu’a",
@@ -13,6 +13,7 @@ const translations = {
       medium: "Médio",
       hard: "Difícil",
       back: "Voltar",
+      selectDifficulty: "Escolha a dificuldade do jogo",
     },
     language: {
       select: "Altere o Idioma",
@@ -40,6 +41,7 @@ const translations = {
       saved: "Pontuação Salva",
       playAgain: "Jogar Novamente",
       viewRanking: "Ver Classificação",
+      home: "Voltar para o Início",
     },
     instructions: {
       text: `Objetivo do jogo:
@@ -77,6 +79,7 @@ Divirta-se e desafie sua memória!!`,
       medium: "Mbyte",
       hard: "Ijetu’u",
       back: "Ejevy",
+      selectDifficulty: "Eiporavo tekoasy"
     },
     language: {
       select: "Eiporavo Ñe’ẽ",
@@ -85,13 +88,13 @@ Divirta-se e desafie sua memória!!`,
     },
     ranking: {
       name: "Téra",
-      score: "Puntuación",
-      points: "Puntos",
+      score: "Pontuação",
+      points: "Pontos",
       time: "Arapytu’ũ",
     },
     game: {
       try: "Ñeha’ã",
-      score: "Puntuación",
+      score: "Pontuação",
     },
     score: {
       congrats: "Aguyjevete!!",
@@ -104,6 +107,7 @@ Divirta-se e desafie sua memória!!`,
       saved: "Puntuación oñongatupyre",
       playAgain: "Eñepyrũjey",
       viewRanking: "Ehecha Rangokuéra",
+      home: "Ejevy ñeñepyrũme",
     },
     instructions: {
       text: `Tembiaporã:
@@ -129,4 +133,4 @@ Evy’a ha eñorairõ nde mandu’áre!`,
   },
 };
 
-export default translations;
+export default translation;
