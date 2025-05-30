@@ -2,10 +2,9 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { Card } from '../components/Card';
-import { Button } from '../components/Button';
+import { useLanguage } from '../languageContext';
 import './Game.css';
 
-// Interface para as cartas do jogo
 interface CartaJogo {
   id: number;
   conteudo: string;
@@ -16,57 +15,49 @@ interface CartaJogo {
 export const Game = () => {
   const { nivel } = useParams();
   const navigate = useNavigate();
-  
-  // Estados para controlar o jogo
+  const { t } = useLanguage();
+
   const [cartas, setCartas] = useState<CartaJogo[]>([]);
   const [cartasViradas, setCartasViradas] = useState<number[]>([]);
   const [tentativas, setTentativas] = useState<number>(0);
   const [pontuacao, setPontuacao] = useState<number>(1000);
   const [jogoCompleto, setJogoCompleto] = useState<boolean>(false);
-  
+  const [tempoJogo, setTempoJogo] = useState<number>(0);
+
   // Dados de exemplo para o ranking
   const ranking = Array(10).fill({ name: 'Jogador', score: 1000 });
 
-  // Determinar número de cartas com base na dificuldade
-  let numeroCartas = 30; // Padrão para difícil
-  let colunas = 6;      // Padrão de colunas
-  
-  if (nivel === 'facil') {
+  // LÓGICA DA DIFICULDADE
+  let numeroCartas = 30;
+  let colunas = 6;
+
+  if (nivel === 'Facil') {
     numeroCartas = 16;
-    colunas = 4;        // 4x4 grid
-  } else if (nivel === 'medio') {
+    colunas = 4;
+  } else if (nivel === 'Medio') {
     numeroCartas = 24;
-    colunas = 6;        // 6x4 grid
+    colunas = 6;
   }
-  
-  // Inicializar as cartas quando o componente carregar
+
   useEffect(() => {
     inicializarCartas();
   }, [nivel]);
-  
-  // Função para inicializar o jogo com cartas embaralhadas
+
   const inicializarCartas = () => {
-    // Criar array de conteúdos (pares)
-    const conteudos = ['🍎', '🍌', '🍇', '🍊', '🍓', '🍉', '🍒', '🥥', 
-                       '🐶', '🐱', '🐭', '🐰', '🦊', '🐻', '🐼', '🐨'];
-                       
-    // Pegar apenas a quantidade necessária para o nível
+    const conteudos = ['🍎', '🍌', '🍇', '🍊', '🍓', '🍉', '🍒', '🥥',
+      '🐶', '🐱', '🐭', '🐰', '🦊', '🐻', '🐼', '🐨'];
+
     const conteudosNivel = conteudos.slice(0, numeroCartas / 2);
-    
-    // Duplicar para criar pares
     let todosPares = [...conteudosNivel, ...conteudosNivel];
-    
-    // Embaralhar as cartas
     todosPares = todosPares.sort(() => Math.random() - 0.5);
-    
-    // Criar o array de cartas
+
     const novasCartas: CartaJogo[] = todosPares.map((conteudo, index) => ({
       id: index,
       conteudo,
       virada: false,
       encontrada: false
     }));
-    
+
     setCartas(novasCartas);
     setCartasViradas([]);
     setTentativas(0);
@@ -74,77 +65,81 @@ export const Game = () => {
     setJogoCompleto(false);
   };
 
-  // Função para virar uma carta
   const virarCarta = (id: number) => {
-    // Se já tem 2 cartas viradas ou a carta já está virada/encontrada, não faz nada
     if (cartasViradas.length === 2 || cartas[id].virada || cartas[id].encontrada) {
       return;
     }
 
-    // Virar a carta clicada
     const novasCartas = [...cartas];
     novasCartas[id].virada = true;
     setCartas(novasCartas);
-    
-    // Adicionar ao array de cartas viradas
     const novasCartasViradas = [...cartasViradas, id];
     setCartasViradas(novasCartasViradas);
-    
-    // Se já tem 2 cartas viradas, verificar se são iguais
+
     if (novasCartasViradas.length === 2) {
-      // Aumentar contador de tentativas
       setTentativas(prev => prev + 1);
-      
-      // Verificar se as cartas são iguais
       setTimeout(() => {
         verificarPar(novasCartasViradas);
-      }, 1000); // Aguarda 1s para o usuário ver as cartas
+      }, 1000);
     }
   };
 
-  // Verificar se as duas cartas viradas são um par
   const verificarPar = (ids: number[]) => {
     const [id1, id2] = ids;
     const novasCartas = [...cartas];
-    
-    // Se as cartas têm o mesmo conteúdo
+
     if (novasCartas[id1].conteudo === novasCartas[id2].conteudo) {
-      // Marcar como encontradas
       novasCartas[id1].encontrada = true;
       novasCartas[id2].encontrada = true;
-      setPontuacao(prev => prev + 50); // Aumenta pontos por acerto
-      
-      // Verificar se o jogo acabou
+      setPontuacao(prev => prev + 50);
+
       const todasEncontradas = novasCartas.every(carta => carta.encontrada);
       if (todasEncontradas) {
         setJogoCompleto(true);
-        // Aqui você poderia salvar o recorde, mostrar mensagem, etc.
       }
     } else {
-      // Não são iguais, virar de volta
       novasCartas[id1].virada = false;
       novasCartas[id2].virada = false;
-      setPontuacao(prev => Math.max(0, prev - 25)); // Diminui pontos por erro
+      setPontuacao(prev => Math.max(0, prev - 25));
     }
-    
+
     setCartas(novasCartas);
     setCartasViradas([]);
   };
-  
-  // Renderização do componente
+
+  useEffect(() => {
+    if (jogoCompleto) return;
+    const timer = setInterval(() => {
+      setTempoJogo(prev => prev + 1);
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [jogoCompleto]);
+
+  useEffect(() => {
+    if (jogoCompleto) {
+      navigate('/modelScore', {
+        state: {
+          dificuldade: nivel,
+          tempo: tempoJogo,
+          jogadas: tentativas,
+          pontuacao: pontuacao
+        }
+      });
+    }
+  }, [jogoCompleto, navigate, nivel, tempoJogo, tentativas, pontuacao]);
+
   return (
     <div className="game-container">
-      <button className="btn-voltar" onClick={() => navigate('/')}>Voltar</button>
-      
+      <button className="btn-voltar" onClick={() => navigate('/')}>
+        {t("difficulty", "back")}
+      </button>
+
       <div className="game-content">
-        {/* Tabuleiro */}
         <Card className="game-board-container">
-          <div className="game-board" style={{ 
-            gridTemplateColumns: `repeat(${colunas}, 1fr)` 
-          }}>
+          <div className="game-board" style={{ gridTemplateColumns: `repeat(${colunas}, 1fr)` }}>
             {cartas.map((carta) => (
-              <div 
-                key={carta.id} 
+              <div
+                key={carta.id}
                 className={`game-card ${carta.virada ? 'virada' : ''} ${carta.encontrada ? 'encontrada' : ''}`}
                 onClick={() => virarCarta(carta.id)}
               >
@@ -153,18 +148,13 @@ export const Game = () => {
             ))}
           </div>
         </Card>
-        
-        {/* Ranking - mantido como está */}
+
         <Card className="game-ranking-container">
           <h1 className="ranking-title">Ranking</h1>
-          
-          {/* Cabeçalho do ranking */}
           <div className="ranking-header">
-            <div className="ranking-header-nome">NOME</div>
-            <div className="ranking-header-pontos">PONTOS</div>
+            <div className="ranking-header-nome">{t("ranking", "name")}</div>
+            <div className="ranking-header-pontos">{t("ranking", "points")}</div>
           </div>
-          
-          {/* Lista de ranking */}
           <div className="ranking-list">
             {ranking.map((player, index) => (
               <div key={index} className="ranking-item">
@@ -176,11 +166,18 @@ export const Game = () => {
         </Card>
       </div>
 
-      {/* Informações de Tentativas e Pontuação */}
       <div className="game-info">
-        <Card className="tentativas">Tentativas: {tentativas}</Card>
-        <Card className="pontuacao">Pontuação: {pontuacao}</Card>
+        <Card className="tentativas">
+          {t("game", "try")}: {tentativas}
+        </Card>
+        <Card className="pontuacao">
+          {t("game", "score")}: {pontuacao}
+        </Card>
+        <Card className="tempo">
+          {t("ranking", "time")}: {Math.floor(tempoJogo / 60)}:{(tempoJogo % 60).toString().padStart(2, '0')}
+        </Card>
       </div>
+
     </div>
   );
 };
