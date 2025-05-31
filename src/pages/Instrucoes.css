@@ -1,16 +1,41 @@
 .instrucoes-container {
+  width: 100vw;
+  padding: 10px;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  padding: 2rem;
-  min-height: 100vh;
-  background: linear-gradient(to bottom, #f1f8e9, #c8e6c9);
+  justify-content: center; /* Centraliza verticalmente */
+  background: #f8f8f8;
+}
+
+.card-secundario {
+  width: 100%;
+  max-width: 50rem;
+  max-height: 44rem;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 12px;
+  padding: 24px 16px;
+}
+
+.titulo-instrucoes {   /* Aumenta o espaço abaixo do título */
+  font-size: 2rem;
+  margin-block-start: 0;
+  text-align: center;
+}
+
+.texto-instrucoes, .card-subtitle {
+  width: 100%;
+  box-sizing: border-box;
+  white-space: pre-wrap; /* Mantém quebras de linha e permite quebra automática */
+  line-height: 1.6;
+  padding: 0;
+  text-align: left;
+  font-weight: bolder;
 }
 
 .btn-voltar {
-  align-self: flex-start;
-  margin-bottom: 1.5rem;
+  align-self: center;
   background-color: #388e3c;
   color: white;
   border: none;
@@ -23,4 +48,17 @@
 
 .btn-voltar:hover {
   background-color: #2e7d32;
+}
+
+@media (max-width: 600px) {
+  .card-secundario {
+    padding: 16px 6px;
+    max-width: 65%;
+  }
+  .titulo-instrucoes {
+    font-size: 1rem;
+  }
+  .texto-instrucoes, .card-subtitle {
+    font-size: 0.95rem;
+  }
 }

@@ -9,15 +9,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  padding-top: 80px;
   padding: 20px;
-  gap: 20px;
-  height: 100vh;
-  box-sizing: border-box;
-  background-size: cover;
-  background-position: center;
-  position: relative;
 }
 
 /* Botão Voltar estilizado como uma pílula amarela */
@@ -38,20 +30,17 @@ body {
 /* Layout do conteúdo principal */
 .game-content {
   display: flex;
-  justify-content: center;
   align-items: flex-start;
   width: 100%;
   max-width: 1100px;
-  gap: 20px; /* Mais espaço entre o tabuleiro e o ranking */
+  gap: 40px; /* Mais espaço entre o tabuleiro e o ranking */
 }
 
 /* Container do tabuleiro com borda roxa */
 .game-board-container {
   flex: 1;
-  height: auto; /* Altura automática baseado no conteúdo */
-  max-height: 800px; /* Altura máxima */
+  max-height: 600px; /* Altura máxima */
   aspect-ratio: 1.2; /* Proporção aproximada para manter o aspecto */
-  width: 1800px;
   background: rgba(237, 237, 237, 0.3); /* Cinza claro com transparência */
   border-radius: 1rem;
   padding: 1rem;
@@ -59,23 +48,66 @@ body {
   box-shadow: 0 0 0 3px #a080d0, 0 8px 32px 0 rgba(31, 38, 135, 0.15); /* Borda roxa + sombra */
   backdrop-filter: blur(8px); /* Aplica o blur no fundo */
   -webkit-backdrop-filter: blur(8px); /* Suporte Safari */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Tamanhos diferentes para cada dificuldade */
+.game-board-container.facil {
+  width: 100px; 
+  max-width: 60%;
+  max-height: 600px;
+}
+
+.game-board-container.medio {
+  width: 500px;   /* 6 colunas x 85px (aprox) */
+  max-width: 70%;
+  max-height: 600px;
+}
+
+.game-board-container.dificil {
+  width: 700px;
+  max-width: 98vw;
 }
 
 /* Grid do tabuleiro com 6 colunas como na imagem */
 .game-board {
   display: grid;
-  grid-template-columns: repeat(6, 1fr); /* 6 colunas */
-  gap: 1rem;
+  gap: 20px;
   width: 100%;
+  justify-content: center;
+}
+
+/* Grid para dificuldade fácil: 4 colunas */
+.game-board.facil {
+  grid-template-columns: repeat(4, 1fr);
+  width: 200px;
+  gap: 40px;
+  justify-content: center;
+}
+
+/* Grid para dificuldade média: 6 colunas */
+.game-board.medio {
+  margin-top: 20px;
   height: 100%;
-  justify-items: center;
-  align-items: center;
+  justify-content: center;
+  grid-template-columns: repeat(6, 1fr);
+  width: 100%;
+}
+
+/* Grid para dificuldade difícil: 6 colunas */
+.game-board.dificil {
+  grid-template-columns: repeat(6, 1fr);
+  width: 100%;
+  margin: 0 auto;
 }
 
 /* Cartas do jogo com efeito de virar */
 .game-card {
   aspect-ratio: 0.7;
-  width: min(12vw, 70px);
+  width: 100%;
+  max-width: 70px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -103,7 +135,7 @@ body {
   cursor: default;
 }
 
-/* Container de ranking */
+/* Ranking */
 .game-ranking-container {
   background: #f9f9ff; /* Fundo mais claro e levemente azulado */
   border: 3px solid #c8bbff; /* Borda lilás mais clara */
@@ -151,13 +183,12 @@ body {
   border-right: 1px solid rgba(255, 255, 255, 0.5); /* Divisor mais sutil */
 }
 
-
 /* Lista dos jogadores */
 .ranking-list {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 8px; /* Menos espaço entre os itens */
+  gap: 10px; /* Menos espaço entre os itens */
   overflow-y: auto;
   max-height: 550px;
   padding: 2px;
@@ -194,41 +225,88 @@ body {
 .game-info {
   position: relative;
   width: 100%;
+  height: 50px;
   display: flex;
   justify-content: center;
-  gap: 450px; /* Espaçamento entre as pílulas */
-  margin-top: 20px;
+  align-items: center;
+  gap: 40px; /* Espaçamento entre as pílulas */
 }
 
 /* Estilo das pílulas de informação */
-.tentativas, .pontuacao {
+.tentativas, .pontuacao, .tempo {
   background: #ffffff; /* Fundo branco */
   color: #4caf50; /* Texto verde */
   font-weight: bold;
-  padding: 10px 30px;
+  padding: 10px;
   border-radius: 25px; /* Muito arredondado para parecer uma pílula */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* Responsividade */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .game-content {
     flex-direction: column;
     align-items: center;
+    gap: 20px;
   }
-  
-  .game-board-container, .game-ranking-container {
-    max-width: 100%;
+  .game-board-container,
+  .game-ranking-container {
+    max-width: 98vw;
+    width: 98vw;
+    padding: 0.5rem;
   }
-  
   .game-board {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0.5rem;
+    width: 100%;
+    gap: 10px;
   }
-  
+  .game-board.facil,
+  .game-board.medio,
+  .game-board.dificil {
+    width: 100%;
+  }
   .game-card {
-    width: 60px;
-    height: 80px;
-    font-size: 1.5rem;
+    max-width: 50px;
+    font-size: 1.1rem;
+  }
+  .game-ranking-container {
+    width: 95vw;
+    padding: 10px 5px;
+  }
+}
+
+@media (max-width: 600px) {
+  .game-board-container {
+    padding: 0.2rem;
+  }
+  .game-board {
+    gap: 6px;
+  }
+  .game-board.facil {
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+    gap: 8px;
+  }
+  .game-board.medio {
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    gap: 8px;
+  }
+  .game-board.dificil {
+    grid-template-columns: repeat(4, 1fr);
+    width: 100%;
+    gap: 8px;
+  }
+  .game-card {
+    max-width: 36px;
+    font-size: 0.9rem;
+  }
+  .game-ranking-container {
+    width: 99vw;
+    padding: 5px 2px;
+  }
+  .game-info {
+    gap: 10px;
+    height: auto;
+    flex-direction: column;
   }
 }
