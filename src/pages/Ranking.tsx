@@ -25,9 +25,9 @@ export const Ranking: React.FC = () => {
     { name: 'FULANO 6', score: 0, time: '01:30:04' },
   ];
 
-  const handleBack = () => {
-    navigate(-1); // Navega para a página anterior
-  };
+const handleBack = () => {
+  navigate("/home"); //navega a pagina home
+};
 
   // JSX que renderiza o componente na tela
   return (
