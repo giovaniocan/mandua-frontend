@@ -1,19 +1,21 @@
+import React, { ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card } from '../components/Card';
+import { Background } from '../components/Background'; // Importando o Background
 import './Instrucoes.css';
-
 
 const Instrucoes = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="instrucoes-container">
-      <button className="btn-voltar" onClick={() => navigate('/')}>Voltar</button>
-      <Card
-        className="card-secundario"
-        title="Instruções"
-        subtitle={
-          `Objetivo do jogo:
+    <Background>
+      <div className="instrucoes-container">
+        <button className="btn-voltar" onClick={() => navigate('/')}>Voltar</button>
+        <Card
+          className="card-secundario"
+          title="Instruções"
+          subtitle={`
+Objetivo do jogo:
 Encontre todos os pares de cartas iguais no menor tempo possível e com o menor número de tentativas.
 
 Como jogar:
@@ -31,11 +33,11 @@ Dicas:
   • Tente memorizar a posição das cartas para formar os pares mais rapidamente.
   • Preste atenção nas cartas que já foram reveladas.
 
-Divirta-se e desafie sua memória! 🧠`
-        }
-        buttons={[]}
-      />
-    </div>
+Divirta-se e desafie sua memória! 🧠`}
+          buttons={[]}
+        />
+      </div>
+    </Background>
   );
 };
 
