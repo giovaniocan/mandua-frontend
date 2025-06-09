@@ -57,7 +57,7 @@ body {
 /* Tamanhos diferentes para cada dificuldade */
 .game-board-container.facil {
   width: 100px; 
-  max-width: 60%;
+  max-width: 70%;
   max-height: 600px;
 }
 
@@ -83,8 +83,9 @@ body {
 /* Grid para dificuldade fácil: 4 colunas */
 .game-board.facil {
   grid-template-columns: repeat(4, 1fr);
-  width: 200px;
-  gap: 40px;
+  width: 680px;
+  gap: 50px;
+  margin: 10px 10px 10px 40px;
   justify-content: center;
 }
 
@@ -226,7 +227,7 @@ body {
 .game-info {
   position: static; /* ou remova a linha */
   width: 55%;      /* ocupa toda a largura do container */
-  margin: 0px 350px auto 10px; /* espaço entre o grid e o info */
+  margin: auto 350px 10px 20px; /* espaço entre o grid e o info */
   display: flex;
   background: rgba(255, 255, 255, 0.8); /* Fundo branco com leve transparência */
   justify-content:flex-start;
