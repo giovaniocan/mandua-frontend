@@ -6,7 +6,8 @@
   width: 100%; 
   padding: 0; 
   box-sizing: border-box;
-  background: #f8f8f8;
+  /* Remova ou substitua o fundo branco */
+  background: none; /* ou remova esta linha */
 }
 
 .card-secundario {
