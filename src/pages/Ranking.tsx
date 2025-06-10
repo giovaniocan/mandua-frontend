@@ -33,7 +33,10 @@ const handleBack = () => {
   return (
     <div className="ranking-wrapper">
       {}
-      <button className="back-button" onClick={handleBack}>Voltar</button>
+         <button className="btn-voltar" onClick={() => navigate('/')}>
+        {}
+        Voltar
+      </button>
 
       {/* Card principal */}
       <div className="ranking-container">

@@ -4,62 +4,64 @@ import { useState, useEffect } from 'react';
 import { Card } from '../components/Card';
 import CartaJogo from '../components/CartaJogo';
 import './Game.css';
-
-// Defina as cartas disponíveis
-const cartasDisponiveis = [
-  { nomeTupi: 'Ajaka', nomePortugues: 'Cesto', imagem: '/src/assets/Imagens sem fundo/Ajaka.png' },
-  { nomeTupi: 'Ava', nomePortugues: 'Indios', imagem: '/src/assets/Imagens sem fundo/Ava.png' },
-  { nomeTupi: 'Boto', nomePortugues: 'Boto', imagem: '/src/assets/Imagens sem fundo/Boto.png' },
-  { nomeTupi: 'Enéma', nomePortugues: 'Joaninha', imagem: '/src/assets/Imagens sem fundo/Enéma.png' },
-  { nomeTupi: 'Girassol', nomePortugues: 'Girassol', imagem: '/src/assets/Imagens sem fundo/girassol.png' },
-  { nomeTupi: 'Guaraná', nomePortugues: 'Guaraná', imagem: '/src/assets/Imagens sem fundo/guarana.png' },
-  { nomeTupi: 'Guyra', nomePortugues: 'Pássaro', imagem: '/src/assets/Imagens sem fundo/Guyra.png' },
-  { nomeTupi: 'Guyrapa', nomePortugues: 'Arco e flecha', imagem: '/src/assets/Imagens sem fundo/Guyrapa.png' },
-  { nomeTupi: 'Hacha', nomePortugues: 'Machado', imagem: '/src/assets/Imagens sem fundo/Hacha.png' },
-  { nomeTupi: 'Jaguarete', nomePortugues: 'Onça', imagem: '/src/assets/Imagens sem fundo/Jaguarete.png' },
-  { nomeTupi: 'Jakare', nomePortugues: 'Jacaré', imagem: '/src/assets/Imagens sem fundo/Jakare.png' },
-  { nomeTupi: 'Jasy', nomePortugues: 'Lua', imagem: '/src/assets/Imagens sem fundo/Jasy.png' },
-  { nomeTupi: 'Ka_aguy', nomePortugues: 'Floresta', imagem: '/src/assets/Imagens sem fundo/Ka_aguy.png' },
-  { nomeTupi: 'Kãguaa', nomePortugues: 'Cocar', imagem: '/src/assets/Imagens sem fundo/Kãguaa.png' },
-  { nomeTupi: 'kapi_yva', nomePortugues: 'Capivara', imagem: '/src/assets/Imagens sem fundo/kapi_yva.png' },
-  { nomeTupi: 'Kavaju', nomePortugues: 'Cavalo', imagem: '/src/assets/Imagens sem fundo/Kavaju.png' },
-  { nomeTupi: 'Kuarahy', nomePortugues: 'Sol', imagem: '/src/assets/Imagens sem fundo/Kuarahy.png' },
-  { nomeTupi: 'Kure', nomePortugues: 'Porco', imagem: '/src/assets/Imagens sem fundo/Kure.png' },
-  { nomeTupi: 'Kururu', nomePortugues: 'Sapo', imagem: '/src/assets/Imagens sem fundo/Kururu.png' },
-  { nomeTupi: 'Maino_i', nomePortugues: 'Beija-Flor', imagem: '/src/assets/Imagens sem fundo/Maino_i.png' },
-  { nomeTupi: 'Manga', nomePortugues: 'Peteca', imagem: '/src/assets/Imagens sem fundo/Manga.png' },
-  { nomeTupi: 'Mbói', nomePortugues: 'Cobra', imagem: '/src/assets/Imagens sem fundo/Mbói.png' },
-  { nomeTupi: 'Mborevi', nomePortugues: 'Anta', imagem: '/src/assets/Imagens sem fundo/Mborevi.png' },
-  { nomeTupi: 'Mburika_i', nomePortugues: 'Burro', imagem: '/src/assets/Imagens sem fundo/Mburika_i.png' },
-  { nomeTupi: 'Mimbuku', nomePortugues: 'Lança', imagem: '/src/assets/Imagens sem fundo/Mimbuku.png' },
-  { nomeTupi: 'Óga', nomePortugues: 'Maloca', imagem: '/src/assets/Imagens sem fundo/O╠üga.png' },
-  { nomeTupi: 'Oka', nomePortugues: 'Oca', imagem: '/src/assets/Imagens sem fundo/Oka.png' },
-  { nomeTupi: 'Panambi', nomePortugues: 'Borboleta', imagem: '/src/assets/Imagens sem fundo/Panambi.png' },
-  { nomeTupi: 'Para', nomePortugues: 'Mar', imagem: '/src/assets/Imagens sem fundo/Para.jpg' },
-  { nomeTupi: 'Pião', nomePortugues: 'Pião', imagem: '/src/assets/Imagens sem fundo/piao.png' },
-  { nomeTupi: 'Pira', nomePortugues: 'Peixe', imagem: '/src/assets/Imagens sem fundo/Pira.png' },
-  { nomeTupi: 'Tahýi', nomePortugues: 'Formiga', imagem: '/src/assets/Imagens sem fundo/Tahýi.png' },
-  { nomeTupi: 'Tata', nomePortugues: 'Fogueira', imagem: '/src/assets/Imagens sem fundo/Tata.png' },
-  { nomeTupi: 'Uru', nomePortugues: 'Galinha', imagem: '/src/assets/Imagens sem fundo/Uru.png' },
-  { nomeTupi: 'vaka', nomePortugues: 'Vaca', imagem: '/src/assets/Imagens sem fundo/vaka.png' },
-  { nomeTupi: 'Ysyry', nomePortugues: 'Rio', imagem: '/src/assets/Imagens sem fundo/Ysyry.png' },
-  { nomeTupi: 'Yya', nomePortugues: 'Barco', imagem: '/src/assets/Imagens sem fundo/Yya.png' },
-  { nomeTupi: 'Zarabatana', nomePortugues: 'Zarabatana', imagem: '/src/assets/Imagens sem fundo/zarabatana.png' },
-];
-
-interface CartaJogoData {
-  id: number;
-  nome: string;
-  imagem: string;
-  virada: boolean;
-  encontrada: boolean;
-  par: number; 
-}
+import ModelScore from '../components/ModelScore';
 
 export const Game = () => {
   const { nivel } = useParams();
   const navigate = useNavigate();
 
+  const [mostrarScore, setMostrarScore] = useState(false);
+
+  // Defina as cartas disponíveis
+  const cartasDisponiveis = [
+    { nomeTupi: 'Ajaka', nomePortugues: 'Cesto', imagem: '/src/assets/Imagens sem fundo/Ajaka.png' },
+    { nomeTupi: 'Ava', nomePortugues: 'Indios', imagem: '/src/assets/Imagens sem fundo/Ava.png' },
+    { nomeTupi: 'Boto', nomePortugues: 'Boto', imagem: '/src/assets/Imagens sem fundo/Boto.png' },
+    { nomeTupi: 'Enéma', nomePortugues: 'Joaninha', imagem: '/src/assets/Imagens sem fundo/Enéma.png' },
+    { nomeTupi: 'Girassol', nomePortugues: 'Girassol', imagem: '/src/assets/Imagens sem fundo/girassol.png' },
+    { nomeTupi: 'Guaraná', nomePortugues: 'Guaraná', imagem: '/src/assets/Imagens sem fundo/guarana.png' },
+    { nomeTupi: 'Guyra', nomePortugues: 'Pássaro', imagem: '/src/assets/Imagens sem fundo/Guyra.png' },
+    { nomeTupi: 'Guyrapa', nomePortugues: 'Arco e flecha', imagem: '/src/assets/Imagens sem fundo/Guyrapa.png' },
+    { nomeTupi: 'Hacha', nomePortugues: 'Machado', imagem: '/src/assets/Imagens sem fundo/Hacha.png' },
+    { nomeTupi: 'Jaguarete', nomePortugues: 'Onça', imagem: '/src/assets/Imagens sem fundo/Jaguarete.png' },
+    { nomeTupi: 'Jakare', nomePortugues: 'Jacaré', imagem: '/src/assets/Imagens sem fundo/Jakare.png' },
+    { nomeTupi: 'Jasy', nomePortugues: 'Lua', imagem: '/src/assets/Imagens sem fundo/Jasy.png' },
+    { nomeTupi: 'Ka_aguy', nomePortugues: 'Floresta', imagem: '/src/assets/Imagens sem fundo/Ka_aguy.png' },
+    { nomeTupi: 'Kãguaa', nomePortugues: 'Cocar', imagem: '/src/assets/Imagens sem fundo/Kãguaa.png' },
+    { nomeTupi: 'kapi_yva', nomePortugues: 'Capivara', imagem: '/src/assets/Imagens sem fundo/kapi_yva.png' },
+    { nomeTupi: 'Kavaju', nomePortugues: 'Cavalo', imagem: '/src/assets/Imagens sem fundo/Kavaju.png' },
+    { nomeTupi: 'Kuarahy', nomePortugues: 'Sol', imagem: '/src/assets/Imagens sem fundo/Kuarahy.png' },
+    { nomeTupi: 'Kure', nomePortugues: 'Porco', imagem: '/src/assets/Imagens sem fundo/Kure.png' },
+    { nomeTupi: 'Kururu', nomePortugues: 'Sapo', imagem: '/src/assets/Imagens sem fundo/Kururu.png' },
+    { nomeTupi: 'Maino_i', nomePortugues: 'Beija-Flor', imagem: '/src/assets/Imagens sem fundo/Maino_i.png' },
+    { nomeTupi: 'Manga', nomePortugues: 'Peteca', imagem: '/src/assets/Imagens sem fundo/Manga.png' },
+    { nomeTupi: 'Mbói', nomePortugues: 'Cobra', imagem: '/src/assets/Imagens sem fundo/Mbói.png' },
+    { nomeTupi: 'Mborevi', nomePortugues: 'Anta', imagem: '/src/assets/Imagens sem fundo/Mborevi.png' },
+    { nomeTupi: 'Mburika_i', nomePortugues: 'Burro', imagem: '/src/assets/Imagens sem fundo/Mburika_i.png' },
+    { nomeTupi: 'Mimbuku', nomePortugues: 'Lança', imagem: '/src/assets/Imagens sem fundo/Mimbuku.png' },
+    { nomeTupi: 'Óga', nomePortugues: 'Maloca', imagem: '/src/assets/Imagens sem fundo/O╠üga.png' },
+    { nomeTupi: 'Oka', nomePortugues: 'Oca', imagem: '/src/assets/Imagens sem fundo/Oka.png' },
+    { nomeTupi: 'Panambi', nomePortugues: 'Borboleta', imagem: '/src/assets/Imagens sem fundo/Panambi.png' },
+    { nomeTupi: 'Para', nomePortugues: 'Mar', imagem: '/src/assets/Imagens sem fundo/Para.jpg' },
+    { nomeTupi: 'Pião', nomePortugues: 'Pião', imagem: '/src/assets/Imagens sem fundo/piao.png' },
+    { nomeTupi: 'Pira', nomePortugues: 'Peixe', imagem: '/src/assets/Imagens sem fundo/Pira.png' },
+    { nomeTupi: 'Tahýi', nomePortugues: 'Formiga', imagem: '/src/assets/Imagens sem fundo/Tahýi.png' },
+    { nomeTupi: 'Tata', nomePortugues: 'Fogueira', imagem: '/src/assets/Imagens sem fundo/Tata.png' },
+    { nomeTupi: 'Uru', nomePortugues: 'Galinha', imagem: '/src/assets/Imagens sem fundo/Uru.png' },
+    { nomeTupi: 'vaka', nomePortugues: 'Vaca', imagem: '/src/assets/Imagens sem fundo/vaka.png' },
+    { nomeTupi: 'Ysyry', nomePortugues: 'Rio', imagem: '/src/assets/Imagens sem fundo/Ysyry.png' },
+    { nomeTupi: 'Yya', nomePortugues: 'Barco', imagem: '/src/assets/Imagens sem fundo/Yya.png' },
+    { nomeTupi: 'Zarabatana', nomePortugues: 'Zarabatana', imagem: '/src/assets/Imagens sem fundo/zarabatana.png' },
+  ];
+
+  interface CartaJogoData {
+    id: number;
+    nome: string;
+    imagem: string;
+    virada: boolean;
+    encontrada: boolean;
+    par: number; 
+  }
 
   const [cartas, setCartas] = useState<CartaJogoData[]>([]);
   const [cartasViradas, setCartasViradas] = useState<number[]>([]);
@@ -126,16 +128,9 @@ export const Game = () => {
   // Redirecionamento automático ao completar o jogo
   useEffect(() => {
     if (jogoCompleto) {
-      navigate('/modelScore', {
-        state: {
-          dificuldade: nivelNormalizado,
-          tempo: tempoJogo,
-          jogadas: tentativas,
-          pontuacao: pontuacao
-        }
-      });
+      setMostrarScore(true);
     }
-  }, [jogoCompleto, navigate, nivelNormalizado, tempoJogo, tentativas, pontuacao]);
+  }, [jogoCompleto]);
 
   const virarCarta = (id: number) => {
     if (cartasViradas.length === 2 || cartas[id].virada || cartas[id].encontrada) return;
@@ -217,6 +212,15 @@ export const Game = () => {
           Tempo: {Math.floor(tempoJogo / 60)}:{(tempoJogo % 60).toString().padStart(2, '0')}
         </Card>
       </div>
+      {mostrarScore && (
+        <ModelScore
+          dificuldade={nivelNormalizado}
+          tempo={tempoJogo}
+          jogadas={tentativas}
+          pontuacao={pontuacao}
+          onClose={() => setMostrarScore(false)}
+        />
+      )}
     </div>
   );
 };
