@@ -1,9 +1,13 @@
 //Background.tsx
+import React, { ReactNode, useEffect, useRef, useState } from 'react';
 import './Background.css';
-import { useEffect, useRef, useState } from 'react';
 import { Volume2, VolumeX } from 'lucide-react'; // ícones de som
 
-export const Background = () => {
+type BackgroundProps = {
+  children: ReactNode;
+};
+
+export const Background: React.FC<BackgroundProps> = ({ children }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isMuted, setIsMuted] = useState(false);
@@ -64,6 +68,7 @@ export const Background = () => {
       <button className="mute-button" onClick={toggleMute}>
         {isMuted ? <VolumeX size={24} color="white" /> : <Volume2 size={24} color="white" />}
       </button>
+      {children} {/* Renderiza os elementos filhos */}
     </div>
   );
 };

@@ -7,7 +7,7 @@ function App() {
   return (
     <LanguageProvider>
       <div className="min-h-screen">
-        <Background />
+        <Background children={undefined} />
 
         <AudioToggle />
         <div className="relative z-10 min-h-screen">

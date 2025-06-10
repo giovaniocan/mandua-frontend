@@ -13,25 +13,7 @@ export const AudioToggle = () => {
     }
   }, [muted]);
 
-  return (
-    <button
-      onClick={() => setMuted(prev => !prev)}
-      style={{
-        position: 'fixed',
-        bottom: 20,
-        right: 20,
-        zIndex: 100,
-        background: 'transparent',
-        border: 'none',
-        borderRadius: '50%',
-        padding: '10px',
-        color: 'white',
-        cursor: 'pointer',
-      }}
-    >
-      {muted ? <VolumeX size={24} /> : <Volume2 size={24} />}
-    </button>
-  );
+  return null; // O botão foi removido
 };
 
 
