@@ -1,9 +1,8 @@
 // components/AudioToggle.tsx
 import { useState, useEffect } from 'react';
-import { Volume2, VolumeX } from 'lucide-react';
 
 export const AudioToggle = () => {
-  const [muted, setMuted] = useState(false);
+  const [muted] = useState(false);
 
   useEffect(() => {
     const audio = document.querySelector('audio');
